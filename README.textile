@@ -1,0 +1,45 @@
+h1. Active Reload
+
+Active Reload is a gem that changes a little when Rails code reloading is executed.
+Normally Rails "forgets" your code after every request in development mode and loads again necessary
+files during the request. If your application is big this can take lot of time especially on "dashboard" page
+that uses lot of different classes.
+
+However this constant reloading is not always necessary. This gem changes it so it occurs
+before request and only when file was changed or added. It won't make reloading your app
+faster but it will skip reloading when nothing changed and that saved second can really sum
+up to a big value. It means that after change first request in development mode will reload the code
+and take as much time as it takes without this gem but subsequent request will be faster until next
+changes due to lack of code reloading.
+
+h2. Notifications
+
+You can subscribe to two notifications provided by this gem.
+
+@active_reload.set_clear_dependencies_hook_replaced@ event is triggered when the gem changes original rails hook for code reloading.
+
+<pre>
+
+ActiveSupport::Notifications.subscribe("active_reload.set_clear_dependencies_hook_replaced") do |*args|
+  event = ActiveSupport::Notifications::Event.new(*args)
+  msg = event.name
+  # Ubuntu: https://github.com/splattael/libnotify, Example: Libnotify.show(:body => msg, :summary => Rails.application.class.name, :timeout => 2.5, :append => true)
+  # Macos: http://segment7.net/projects/ruby/growl/
+  puts Rails.logger.warn(" --- #{msg} --- ")
+end
+
+</pre>
+
+@active_support.dependencies.clear@ event is triggered when code reloading is triggered by this gem.
+
+<pre>
+
+ActiveSupport::Notifications.subscribe("active_support.dependencies.clear") do |*args|
+  msg = "Code reloaded!"
+  # Ubuntu: https://github.com/splattael/libnotify, Example: Libnotify.show(:body => msg, :summary => Rails.application.class.name, :timeout => 2.5, :append => true)
+  # Macos: http://segment7.net/projects/ruby/growl/
+  puts Rails.logger.info(" --- #{msg} --- ")
+end
+
+</pre>
+
