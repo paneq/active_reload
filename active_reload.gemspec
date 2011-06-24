@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = ActiveReload::VERSION
   s.authors     = ["Robert Pankowecki"]
   s.email       = ["robert.pankowecki@gmail.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "https://github.com/paneq/active_reload"
+  s.summary     = %q{Reload Rails code in development mode only when change is deteced}
+  s.description = %q{Reload Rails code in development mode only when change is deteced}
 
   s.rubyforge_project = "active_reload"
 
