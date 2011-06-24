@@ -12,6 +12,19 @@ up to a big value. It means that after change first request in development mode 
 and take as much time as it takes without this gem but subsequent request will be faster until next
 changes due to lack of code reloading.
 
+h2. Installation
+
+Simply add Active Reload to your Gemfile and bundle it up:
+
+<pre>
+  gem 'active_reload'
+</pre>
+
+h2. Compatibility
+
+It was hand tested only with Rails 3.0.9 but should work without any problem on any 3.0.* version.
+Expect 3.1.* support soon :-) !
+
 h2. Notifications
 
 You can subscribe to two notifications provided by this gem.
