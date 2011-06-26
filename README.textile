@@ -1,6 +1,6 @@
 h1. Active Reload
 
-<a href='http://www.pledgie.com/campaigns/15547'><img alt='Click here to lend your support to: Active Reload and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/15547.png?skin_name=chrome' border='0' /></a>
+<a href='http://www.pledgie.com/campaigns/15547'><img alt='Donate Active Reload at www.pledgie.com' src='http://www.pledgie.com/campaigns/15547.png?skin_name=chrome' border='0' /></a>
 
 Active Reload is a gem that changes a little when Rails code reloading is executed.
 Normally Rails "forgets" your code after every request in development mode and loads again necessary
