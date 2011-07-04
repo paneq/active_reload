@@ -60,5 +60,5 @@ end
 
 h2. Links
 
-* http://blog.robert.pankowecki.pl/2011/06/faster-rails-development-part-2.html
-* http://blog.robert.pankowecki.pl/2011/05/get-faster-rails-development.html
+* "Part 2":http://blog.robert.pankowecki.pl/2011/06/faster-rails-development-part-2.html
+* "Part 1":http://blog.robert.pankowecki.pl/2011/05/get-faster-rails-development.html
