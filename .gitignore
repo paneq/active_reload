@@ -9,3 +9,4 @@ test/dummy*/.bundle
 test/dummy*/db/*.sqlite3
 test/dummy*/log/*.log
 test/dummy*/tmp/
+test/dummy*/vendor/bundle/

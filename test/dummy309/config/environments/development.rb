@@ -7,7 +7,8 @@ class DefinedMiddleware
     if m = path.match(/^\/const\/(.*)/)
       const = m[1]
       answer = eval("defined?(#{const})")
-      return [200, {}, answer.to_s]
+      answer ||= "nil"
+      return [200, {}, answer]
     else
       @app.call(env)
     end
