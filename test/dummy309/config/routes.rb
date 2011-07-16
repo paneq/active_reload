@@ -1,4 +1,7 @@
 Dummy309::Application.routes.draw do
+  match "/empty" => "empty/index"
+  match "/root" => "root/index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
