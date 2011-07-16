@@ -1,3 +1,19 @@
+class DefinedMiddleware
+  def initialize(app)
+    @app = app
+  end
+  def call(env)
+    path = env['PATH_INFO']
+    if m = path.match(/^\/const\/(.*)/)
+      const = m[1]
+      answer = eval("defined?(#{const})")
+      return [200, {}, answer.to_s]
+    else
+      @app.call(env)
+    end
+  end
+end
+
 Dummy309::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -22,5 +38,6 @@ Dummy309::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
-end
 
+  config.middleware.insert_after(ActionDispatch::Static, DefinedMiddleware)
+end
