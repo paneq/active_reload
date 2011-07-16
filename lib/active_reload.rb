@@ -9,13 +9,7 @@ module ActiveReload
   end # Railtie
 
   def self.replace?
-    call_callbacks = if Rails.version >= "3.1"
-      ActionDispatch::Callbacks._call_callbacks
-    else
-      ActionDispatch::Callbacks.instance_variable_get(:@_call_callbacks)
-    end
-
-    !Rails.application.config.cache_classes && replace_proc?(call_callbacks.last)
+    !Rails.application.config.cache_classes && replace_proc?(ActionDispatch::Callbacks._call_callbacks.last)
   end
   
   def self.replace_proc?(last)
