@@ -25,13 +25,57 @@ Watch these two videos for comparison:
 
 <a href='http://www.youtube.com/watch?v=HelS-mVnfI4'><img alt='Spree in development mode with enabled Active Reload' src='http://img.youtube.com/vi/HelS-mVnfI4/0.jpg' border='0' /></a>
 
-### Do you want to reproduce the experiment ? 
+## Installation
+
+Simply add Active Reload to your Gemfile and bundle it up:
+
+```ruby
+  gem 'active_reload'
+```
+
+## Compatibility
+
+It was hand tested only with Rails 3.0.9 but should work without any problem on any 3.0.* and 3.1.* Rails version. I'm in the middle of writing automatic tests for it.
+
+## Notifications
+
+You can subscribe to two notifications provided by this gem.
+
+`active_reload.set_clear_dependencies_hook_replaced` event is triggered when the gem changes original rails hook for code reloading.
+
+```ruby
+ActiveSupport::Notifications.subscribe("active_reload.set_clear_dependencies_hook_replaced") do |*args|
+  event = ActiveSupport::Notifications::Event.new(*args)
+  msg = event.name
+  # Ubuntu: https://github.com/splattael/libnotify, Example: Libnotify.show(:body => msg, :summary => Rails.application.class.name, :timeout => 2.5, :append => true)
+  # Macos: http://segment7.net/projects/ruby/growl/
+  puts Rails.logger.warn(" --- #{msg} --- ")
+end
+```
+
+`active_support.dependencies.clear` event is triggered when code reloading is triggered by this gem.
+
+```ruby
+ActiveSupport::Notifications.subscribe("active_support.dependencies.clear") do |*args|
+  msg = "Code reloaded!"
+  # Ubuntu: https://github.com/splattael/libnotify, Example: Libnotify.show(:body => msg, :summary => Rails.application.class.name, :timeout => 2.5, :append => true)
+  # Macos: http://segment7.net/projects/ruby/growl/
+  puts Rails.logger.info(" --- #{msg} --- ")
+end
+```
+
+## Links
+
+ * http://blog.robert.pankowecki.pl/2011/06/faster-rails-development-part-2.html
+ * http://blog.robert.pankowecki.pl/2011/05/get-faster-rails-development.html
+
+## Do you want to reproduce the video experiment ? 
 
 The tested spree version was: https://github.com/spree/spree/tree/42795d91d3680394ef70126e6660cac3da81e8a9
 
 It was installed in sandbox mode:
 
-```ruby
+```bash
   git clone git://github.com/spree/spree.git spree
   cd spree
   git checkout 42795d91d3680394ef70126e6660cac3da81e8a9
@@ -88,7 +132,7 @@ Benchmark.measure do
   user.visit("/admin")
   user.fill_in("Email", :with => "spree@example.com")
   user.fill_in("Password", :with => "spree@example.com")
-  user.click_button "Log In"
+  user.click_button("Log In")
 
   admin.each do |link|
     user.click_on(link)
@@ -104,48 +148,3 @@ Benchmark.measure do
 
 end
 ```
-
-## Installation
-
-Simply add Active Reload to your Gemfile and bundle it up:
-
-```ruby
-  gem 'active_reload'
-```
-
-## Compatibility
-
-It was hand tested only with Rails 3.0.9 but should work without any problem on any 3.0.* version.
-Expect 3.1.* support soon :-) !
-
-## Notifications
-
-You can subscribe to two notifications provided by this gem.
-
-`active_reload.set_clear_dependencies_hook_replaced` event is triggered when the gem changes original rails hook for code reloading.
-
-```ruby
-ActiveSupport::Notifications.subscribe("active_reload.set_clear_dependencies_hook_replaced") do |*args|
-  event = ActiveSupport::Notifications::Event.new(*args)
-  msg = event.name
-  # Ubuntu: https://github.com/splattael/libnotify, Example: Libnotify.show(:body => msg, :summary => Rails.application.class.name, :timeout => 2.5, :append => true)
-  # Macos: http://segment7.net/projects/ruby/growl/
-  puts Rails.logger.warn(" --- #{msg} --- ")
-end
-```
-
-`active_support.dependencies.clear` event is triggered when code reloading is triggered by this gem.
-
-```ruby
-ActiveSupport::Notifications.subscribe("active_support.dependencies.clear") do |*args|
-  msg = "Code reloaded!"
-  # Ubuntu: https://github.com/splattael/libnotify, Example: Libnotify.show(:body => msg, :summary => Rails.application.class.name, :timeout => 2.5, :append => true)
-  # Macos: http://segment7.net/projects/ruby/growl/
-  puts Rails.logger.info(" --- #{msg} --- ")
-end
-```
-
-## Links
-
- * http://blog.robert.pankowecki.pl/2011/06/faster-rails-development-part-2.html
- * http://blog.robert.pankowecki.pl/2011/05/get-faster-rails-development.html
