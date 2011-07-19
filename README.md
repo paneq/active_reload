@@ -27,9 +27,10 @@ Watch these two videos for comparison:
 
 ### Do you want to reproduce the experiment ? 
 
-The tested spree version was: "42795d91d3680394ef70126e6660cac3da81e8a9":https://github.com/spree/spree/tree/42795d91d3680394ef70126e6660cac3da81e8a9
+The tested spree version was: https://github.com/spree/spree/tree/42795d91d3680394ef70126e6660cac3da81e8a9
 
 It was installed in sandbox mode:
+
 ```ruby
   git clone git://github.com/spree/spree.git spree
   cd spree
@@ -110,7 +111,7 @@ Simply add Active Reload to your Gemfile and bundle it up:
 
 ```ruby
   gem 'active_reload'
-``
+```
 
 ## Compatibility
 
