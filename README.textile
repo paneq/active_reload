@@ -27,19 +27,19 @@ h3. Spree in development and Active Reload enabled
 
 h3. Do you want to reproduce the experiment ? 
 
-The spree version was: "42795d91d3680394ef70126e6660cac3da81e8a9":https://github.com/spree/spree/tree/42795d91d3680394ef70126e6660cac3da81e8a9
+The tested spree version was: "42795d91d3680394ef70126e6660cac3da81e8a9":https://github.com/spree/spree/tree/42795d91d3680394ef70126e6660cac3da81e8a9
 
 It was installed in sandbox mode:
-<pre>
-git clone git://github.com/spree/spree.git spree
-cd spree
-git checkout 42795d91d3680394ef70126e6660cac3da81e8a9
-bundle install
-rake sandbox
-cd sandbox
-# Edit Gemfile to add or remove active_reload support
-rails server
-</pre>
+@
+  git clone git://github.com/spree/spree.git spree
+  cd spree
+  git checkout 42795d91d3680394ef70126e6660cac3da81e8a9
+  bundle install
+  rake sandbox
+  cd sandbox
+  # Edit Gemfile to add or remove active_reload support
+  rails server
+@
 
 Here is the script:
 
