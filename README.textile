@@ -18,12 +18,30 @@ h2. Y U NO BELIEVE ?
 
 Watch these two videos for comparison:
 
-notextile.. <iframe width="425" height="349" src="http://www.youtube.com/embed/KIOV5Me-83M" frameborder="0" allowfullscreen>
-</iframe>
-notextile.. <iframe width="425" height="349" src="http://www.youtube.com/embed/HelS-mVnfI4" frameborder="0" allowfullscreen>
-</iframe>
+h3. Spree in development mode without Active Reload
+<a href='http://www.youtube.com/watch?v=KIOV5Me-83M'><img alt='Spree in development mode' src='http://img.youtube.com/vi/KIOV5Me-83M/0.jpg' border='0' /></a>
 
-h3. Do you want to reproduce the experiment ? Here is the script:
+h3. Spree in development and Active Reload enabled
+
+<a href='http://www.youtube.com/watch?v=HelS-mVnfI4'><img alt='Spree in development mode with enabled Active Reload' src='http://img.youtube.com/vi/HelS-mVnfI4/0.jpg' border='0' /></a>
+
+h3. Do you want to reproduce the experiment ? 
+
+The spree version was: "42795d91d3680394ef70126e6660cac3da81e8a9":https://github.com/spree/spree/tree/42795d91d3680394ef70126e6660cac3da81e8a9
+
+It was installed in sandbox mode:
+<pre>
+git clone git://github.com/spree/spree.git spree
+cd spree
+git checkout 42795d91d3680394ef70126e6660cac3da81e8a9
+bundle install
+rake sandbox
+cd sandbox
+# Edit Gemfile to add or remove active_reload support
+rails server
+</pre>
+
+Here is the script:
 
 <pre>
 require 'bbq/test'
