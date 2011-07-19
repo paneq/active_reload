@@ -1,4 +1,4 @@
-h1. Active Reload
+# Active Reload
 
 <a href='http://www.pledgie.com/campaigns/15547'><img alt='Donate Active Reload at www.pledgie.com' src='http://pledgie.com/campaigns/15547.png?skin_name=chrome' border='0' /></a>
 
@@ -14,23 +14,23 @@ up to a big value. It means that after change first request in development mode 
 and take as much time as it takes without this gem but subsequent request will be faster until next
 changes due to lack of code reloading.
 
-h2. Y U NO BELIEVE ?
+## Y U NO BELIEVE ?
 
 Watch these two videos for comparison:
 
-h3. Spree in development mode without Active Reload
+### Spree in development mode without Active Reload
 <a href='http://www.youtube.com/watch?v=KIOV5Me-83M'><img alt='Spree in development mode' src='http://img.youtube.com/vi/KIOV5Me-83M/0.jpg' border='0' /></a>
 
-h3. Spree in development and Active Reload enabled
+### Spree in development and Active Reload enabled
 
 <a href='http://www.youtube.com/watch?v=HelS-mVnfI4'><img alt='Spree in development mode with enabled Active Reload' src='http://img.youtube.com/vi/HelS-mVnfI4/0.jpg' border='0' /></a>
 
-h3. Do you want to reproduce the experiment ? 
+### Do you want to reproduce the experiment ? 
 
 The tested spree version was: "42795d91d3680394ef70126e6660cac3da81e8a9":https://github.com/spree/spree/tree/42795d91d3680394ef70126e6660cac3da81e8a9
 
 It was installed in sandbox mode:
-bc..
+```ruby
   git clone git://github.com/spree/spree.git spree
   cd spree
   git checkout 42795d91d3680394ef70126e6660cac3da81e8a9
@@ -39,11 +39,12 @@ bc..
   cd sandbox
   # Edit Gemfile to add or remove active_reload support
   rails server
+```
 
-p. Here is the ruby script that walks through the site using capybara:
+Here is the ruby script that walks through the site using capybara:
 
-<pre>
-require 'bbq/test'
+```ruby
+require 'bbq/test' # https://github.com/drugpl/bbq
 require 'benchmark'
 
 shop = ["Ruby on Rails", "Apache", "Clothing", "Bags", "Mugs"]
@@ -101,29 +102,28 @@ Benchmark.measure do
   user.click_on "Logout"
 
 end
-</pre>
+```
 
-h2. Installation
+## Installation
 
 Simply add Active Reload to your Gemfile and bundle it up:
 
-<pre>
+```ruby
   gem 'active_reload'
-</pre>
+``
 
-h2. Compatibility
+## Compatibility
 
 It was hand tested only with Rails 3.0.9 but should work without any problem on any 3.0.* version.
 Expect 3.1.* support soon :-) !
 
-h2. Notifications
+## Notifications
 
 You can subscribe to two notifications provided by this gem.
 
-@active_reload.set_clear_dependencies_hook_replaced@ event is triggered when the gem changes original rails hook for code reloading.
+`active_reload.set_clear_dependencies_hook_replaced` event is triggered when the gem changes original rails hook for code reloading.
 
-<pre>
-
+```ruby
 ActiveSupport::Notifications.subscribe("active_reload.set_clear_dependencies_hook_replaced") do |*args|
   event = ActiveSupport::Notifications::Event.new(*args)
   msg = event.name
@@ -131,23 +131,20 @@ ActiveSupport::Notifications.subscribe("active_reload.set_clear_dependencies_hoo
   # Macos: http://segment7.net/projects/ruby/growl/
   puts Rails.logger.warn(" --- #{msg} --- ")
 end
+```
 
-</pre>
+`active_support.dependencies.clear` event is triggered when code reloading is triggered by this gem.
 
-@active_support.dependencies.clear@ event is triggered when code reloading is triggered by this gem.
-
-<pre>
-
+```ruby
 ActiveSupport::Notifications.subscribe("active_support.dependencies.clear") do |*args|
   msg = "Code reloaded!"
   # Ubuntu: https://github.com/splattael/libnotify, Example: Libnotify.show(:body => msg, :summary => Rails.application.class.name, :timeout => 2.5, :append => true)
   # Macos: http://segment7.net/projects/ruby/growl/
   puts Rails.logger.info(" --- #{msg} --- ")
 end
+```
 
-</pre>
+## Links
 
-h2. Links
-
-* "Part 2":http://blog.robert.pankowecki.pl/2011/06/faster-rails-development-part-2.html
-* "Part 1":http://blog.robert.pankowecki.pl/2011/05/get-faster-rails-development.html
+ * http://blog.robert.pankowecki.pl/2011/06/faster-rails-development-part-2.html
+ * http://blog.robert.pankowecki.pl/2011/05/get-faster-rails-development.html
