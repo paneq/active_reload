@@ -1,4 +1,5 @@
 # Active Reload
+## The only Rails boost tool that doesn't try to be too smart.
 
 <a href='http://www.pledgie.com/campaigns/15547'><img alt='Donate Active Reload at www.pledgie.com' src='http://pledgie.com/campaigns/15547.png?skin_name=chrome' border='0' /></a>
 
@@ -35,7 +36,9 @@ Simply add Active Reload to your Gemfile and bundle it up:
 
 ## Compatibility
 
-It was hand tested only with Rails 3.0.9 but should work without any problem on any 3.0.* and 3.1.* Rails version. I'm in the middle of writing automatic tests for it.
+It was hand tested only with Rails 3.0.9 but should work without any problem on any `3.0.*` and `3.1.*` Rails version. I'm in the middle of writing automatic tests for it.
+
+It should work with any ruby compatible with `1.9.2` (ex. JRuby). Expect `1.8.7` support soon.
 
 ## Notifications
 
