@@ -30,7 +30,7 @@ h3. Do you want to reproduce the experiment ?
 The tested spree version was: "42795d91d3680394ef70126e6660cac3da81e8a9":https://github.com/spree/spree/tree/42795d91d3680394ef70126e6660cac3da81e8a9
 
 It was installed in sandbox mode:
-@
+bc..
   git clone git://github.com/spree/spree.git spree
   cd spree
   git checkout 42795d91d3680394ef70126e6660cac3da81e8a9
@@ -39,9 +39,8 @@ It was installed in sandbox mode:
   cd sandbox
   # Edit Gemfile to add or remove active_reload support
   rails server
-@
 
-Here is the script:
+p. Here is the ruby script that walks through the site using capybara:
 
 <pre>
 require 'bbq/test'
