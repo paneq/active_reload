@@ -17,7 +17,11 @@ changes due to lack of code reloading.
 
 ## Y U NO BELIEVE ?
 
-Watch these two videos for comparison:
+Watch these videos for comparison:
+
+### 2 simultaneous movies:
+
+http://youtubedoubler.com/1fts
 
 ### Spree in development mode without Active Reload
 <a href='http://www.youtube.com/watch?v=KIOV5Me-83M'><img alt='Spree in development mode' src='http://img.youtube.com/vi/KIOV5Me-83M/0.jpg' border='0' /></a>
