@@ -14,6 +14,76 @@ up to a big value. It means that after change first request in development mode 
 and take as much time as it takes without this gem but subsequent request will be faster until next
 changes due to lack of code reloading.
 
+h2. Y U NO BELIEVE ?
+
+Watch these two videos for comparison:
+
+<iframe width="425" height="349" src="http://www.youtube.com/embed/KIOV5Me-83M" frameborder="0" allowfullscreen></iframe>
+<iframe width="425" height="349" src="http://www.youtube.com/embed/HelS-mVnfI4" frameborder="0" allowfullscreen></iframe>
+
+h3. Do you want to reproduce the experiment ? Here is the script:
+
+<pre>
+require 'bbq/test'
+require 'benchmark'
+
+shop = ["Ruby on Rails", "Apache", "Clothing", "Bags", "Mugs"]
+admin = [
+"Overview", 
+"Orders", 
+"Next", 
+"Products", 
+"Option Types", 
+"Properties", 
+"Prototypes", 
+"Product Groups", 
+"Reports", 
+"Sales Total", 
+"Configuration", 
+"General Settings",
+"Mail Methods",
+"Tax Categories",
+"Zones",
+"States",
+"Payment Methods",
+"Taxonomies",
+"Shipping Methods",
+"Inventory Settings",
+"Analytics Trackers",
+"Complete List",
+"Users",
+"Promotions"
+]
+
+user = Bbq::TestUser.new(:driver => :selenium, :session => :default)
+user.visit("/")
+
+Benchmark.measure do
+
+  shop.each do |link|
+    user.click_on(link)
+  end
+
+  user.visit("/admin")
+  user.fill_in("Email", :with => "spree@example.com")
+  user.fill_in("Password", :with => "spree@example.com")
+  user.click_button "Log In"
+
+  admin.each do |link|
+    user.click_on(link)
+  end
+
+  FileUtils.touch( Rails.root.join("app/controllers/application_controller.rb") )
+
+  admin.first(5).each do |link|
+    user.click_on(link)
+  end
+
+  user.click_on "Logout"
+
+end
+</pre>
+
 h2. Installation
 
 Simply add Active Reload to your Gemfile and bundle it up:
