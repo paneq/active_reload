@@ -1,3 +1,5 @@
+require File.expand_path( File.join(File.dirname(__FILE__), '..', '..', '..', 'support', "defined_middleware") )
+
 Dummy310rc4::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -24,4 +26,20 @@ Dummy310rc4::Application.configure do
 
   # Do not compress assets
   config.assets.compress = false
+
+  config.middleware.insert_after(ActionDispatch::Static, DefinedMiddleware)
+end
+
+# http://railscasts.com/episodes/249-notifications-in-rails-3
+ActiveSupport::Notifications.subscribe("active_support.dependencies.clear") do |*args|
+  msg = "Code reloaded!"
+  #  Libnotify.show(:body => msg, :summary => Rails.application.class.name, :timeout => 2.5, :append => true) # https://github.com/splattael/libnotify
+  Rails.logger.info(" --- #{msg} --- ")
+end
+
+ActiveSupport::Notifications.subscribe("active_reload.set_clear_dependencies_hook_replaced") do |*args|
+  event = ActiveSupport::Notifications::Event.new(*args)
+  msg = event.name
+  #  Libnotify.show(:body => msg, :summary => Rails.application.class.name, :timeout => 2.5, :append => true) # https://github.com/splattael/libnotify
+  Rails.logger.warn(" --- #{msg} --- ")
 end

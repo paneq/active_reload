@@ -9,7 +9,23 @@ module ActiveReload
   end # Railtie
 
   def self.replace?
-    !Rails.application.config.cache_classes && replace_proc?(ActionDispatch::Callbacks._call_callbacks.last)
+    !Rails.application.config.cache_classes && replace_proc?(proc_collection.last)
+  end
+
+  def self.proc_collection
+    if rails31?
+      proc_source._cleanup_callbacks
+    else
+      proc_source._call_callbacks
+    end
+  end
+
+  def self.proc_source
+    if rails31?
+      ActionDispatch::Reloader
+    else
+      ActionDispatch::Callbacks
+    end
   end
   
   def self.replace_proc?(last)
@@ -45,8 +61,20 @@ module ActiveReload
   end
 
   def self.replace_proc(&new)
-    replaced = ActionDispatch::Callbacks.instance_variable_get(:@_call_callbacks).pop
-    ActionDispatch::Callbacks.before(&new)
+    @replaced = proc_collection.pop
+    if rails31?
+      proc_source.to_prepare(&new)
+    else
+      proc_source.before(&new)
+    end
+  end
+
+  def self.rails3?
+    Rails::VERSION::MAJOR == 3
+  end
+
+  def self.rails31?
+    rails3? && Rails::VERSION::MINOR == 1
   end
 
   
