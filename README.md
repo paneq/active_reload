@@ -15,6 +15,13 @@ up to a big value. It means that after change first request in development mode 
 and take as much time as it takes without this gem but subsequent request will be faster until next
 changes due to lack of code reloading.
 
+## It works for you so you want to thank? There are many options:
+
+ * Meet me at wroc_love.rb conference : http://wrocloverb.com/ and buy me a beer.
+ * Tweet about the gem
+ * Tell you friends to try it
+ * Donate
+
 ## Y U NO BELIEVE ?
 
 Watch these videos for comparison:
