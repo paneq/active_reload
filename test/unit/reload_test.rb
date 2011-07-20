@@ -3,6 +3,7 @@ require 'bbq/test'
 require 'pathname'
 require 'socket'
 require 'timeout'
+require 'fileutils'
 
 module FileCommandHelper
   def create_file(path, content)
@@ -18,6 +19,15 @@ module FileCommandHelper
     raise "`#{command}` failed with:\n#{output}" unless $?.success?
   end
 end
+
+#module Sleepy
+#  def visit(path)
+#    super.tap{
+#      puts path
+#      sleep(5)
+#    }
+#  end
+#end
 
 class ReloadTest < Bbq::TestCase
   include FileCommandHelper
@@ -51,6 +61,7 @@ class ReloadTest < Bbq::TestCase
         wait_for_rails(app_port)
         Capybara.app_host = "http://localhost:#{app_port}"
         user = Bbq::TestUser.new(:driver => :selenium)
+        #user.extend(Sleepy)
         user.visit('/const/RootController') # RootController not loaded
         user.see!('nil')
 
