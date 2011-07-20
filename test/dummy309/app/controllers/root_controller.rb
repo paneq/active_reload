@@ -1,5 +1,5 @@
-      class RootController < ApplicationController
-        def index
-          render :text => "first version"
+        class RootController < ApplicationController
+          def index
+            render :text => "second version"
+          end
         end
-      end

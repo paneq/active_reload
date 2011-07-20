@@ -23,8 +23,11 @@ class ReloadTest < Bbq::TestCase
   include FileCommandHelper
 
   def test_rails309
-    app_root = File.expand_path( File.join(File.dirname(__FILE__), '..', 'dummy309') )
-    controller = File.join(app_root, 'app', 'controllers', 'root_controller.rb')
+    app_root      = File.expand_path( File.join(File.dirname(__FILE__), '..', 'dummy309') )
+    app_gemfile   = File.join(app_root, 'Gemfile')
+    app_vendor    = File.join(app_root, 'vendor/bundle')
+    app_pid_file  = File.join(app_root, 'tmp', 'pids', 'server.pid')
+    controller    = File.join(app_root, 'app', 'controllers', 'root_controller.rb')
 
     create_file controller, <<-CONTROLLER
       class RootController < ApplicationController
@@ -36,17 +39,12 @@ class ReloadTest < Bbq::TestCase
 
     begin
       pid = fork do
-        Bundler.with_clean_env do
-          Dir.chdir(app_root)
-          #          exec("cd #{app_root} && pwd")
-          #          exec("cd #{app_root} && bundle install --path vendor/bundle && bundle exec rails s --port 8899")
-          puts "in fork"
-          `bundle install --path vendor/bundle` # this does read the right Gemfile...!
-          `bundle exec rails s --port 8899`
-        end
+        Dir.chdir(app_root)
+        ENV['BUNDLE_GEMFILE'] = app_gemfile
+        puts `bundle install --path #{app_vendor}`
+        `bundle exec rails s --port 8899`
       end
-
-      sleep(5)
+      
       wait_for_rails
       Capybara.app_host = "http://localhost:8899"
       user = Bbq::TestUser.new(:driver => :selenium)
@@ -64,11 +62,11 @@ class ReloadTest < Bbq::TestCase
       user.see!('constant')                # so the constant RootController should be still defined
 
       create_file controller, <<-CONTROLLER
-      class RootController < ApplicationController
-        def index
-          render :text => "second version"
+        class RootController < ApplicationController
+          def index
+            render :text => "second version"
+          end
         end
-      end
       CONTROLLER
 
       user.visit('/empty')                 # we should reload the code before the request because file changed
@@ -81,19 +79,18 @@ class ReloadTest < Bbq::TestCase
       user.visit('/const/RootController')
       user.see!('constant')                # so the constant RootController should not be defined at that time
     ensure
-      server_pid_filepath = File.join(app_root, 'tmp', 'pids', 'server.pid')
-      Process.kill("KILL", File.read(server_pid_filepath) ) if File.exist?(server_pid_filepath)
-      Process.kill("KILL", pid)
+      Process.kill("KILL", File.read(app_pid_file).to_i.tap{|x| puts x} ) if File.exist?(app_pid_file)
+      Process.kill("KILL", pid.to_i.tap{|x| puts x})
     end
-    
+
   end
 
 
   private
 
 
-  def wait_for_rails
-    Timeout::timeout(15) do
+  def wait_for_rails(seconds = 15)
+    Timeout::timeout(seconds) do
       while true do
         begin
           s = TCPSocket.new("127.0.0.1", 8899)
