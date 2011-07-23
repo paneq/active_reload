@@ -1,4 +1,5 @@
 require 'test/unit'
+require 'rubygems'
 require 'bbq/test'
 require 'pathname'
 require 'socket'
@@ -53,8 +54,9 @@ class ReloadTest < Bbq::TestCase
         pid = fork do
           Dir.chdir(app_root)
           ENV['BUNDLE_GEMFILE'] = app_gemfile
+          #puts ENV['BUNDLE_GEMFILE']
           #puts `bundle install --path #{app_vendor}` # Why it does not work ?
-          puts `bundle install --system`
+          #puts `bundle install --system` # This does not sometimes work well too...
           `bundle exec rails s --port #{app_port}`
         end
       
@@ -62,6 +64,7 @@ class ReloadTest < Bbq::TestCase
         Capybara.app_host = "http://localhost:#{app_port}"
         user = Bbq::TestUser.new(:driver => :selenium)
         #user.extend(Sleepy)
+        # VITODO: user.visit('/rails/version') && user.see!(...)
         user.visit('/const/RootController') # RootController not loaded
         user.see!('nil')
 

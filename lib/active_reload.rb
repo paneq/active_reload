@@ -8,6 +8,26 @@ module ActiveReload
     end
   end # Railtie
 
+  module ProcInspector
+    if RUBY_VERSION.start_with?("1.8")
+      # Proc#source_location is not available in Ruby 1.8
+      def source_file
+        # Extract from format like this: "#<Proc:0xb750a994@/home/rupert/.rvm/gems/ruby-1.8.7-p174/gems/activerecord-3.0.9/lib/active_record/railtie.rb:74>"
+        to_s.match(/.*@(.*):[0-9]+>/)[1]
+      end
+    else
+      def source_file
+        # ActionDispatch::Callbacks._call_callbacks.last.raw_filter.source_location
+        # => ["/home/rupert/.rvm/gems/ruby-1.9.2-p180-fastrequire/gems/activerecord-3.0.9/lib/active_record/railtie.rb", 74]
+        source_location.first
+      end
+    end
+
+    def source?(file)
+      source_file.match( Regexp.new(file) )
+    end
+  end
+
   def self.replace?
     !Rails.application.config.cache_classes && replace_proc?(proc_collection.last)
   end
@@ -30,8 +50,8 @@ module ActiveReload
   
   def self.replace_proc?(last)
     last.respond_to?(:raw_filter) &&
-      last.raw_filter.is_a?(Proc) &&
-      last.raw_filter.source_location.first.match( Regexp.new("railties.*/lib/rails/application/bootstrap.rb") )
+    last.raw_filter.is_a?(Proc) &&
+    last.raw_filter.extend(ProcInspector).source?("railties.*/lib/rails/application/bootstrap.rb")
   end
 
   def self.replace!
