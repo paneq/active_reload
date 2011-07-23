@@ -1,7 +1,7 @@
 PATH
   remote: ../../../active_reload
   specs:
-    active_reload (0.2.0)
+    active_reload (0.3.0)
 
 GEM
   remote: http://rubygems.org/
