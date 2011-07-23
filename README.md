@@ -47,9 +47,8 @@ Simply add Active Reload to your Gemfile and bundle it up:
 
 ## Compatibility
 
-It was hand tested only with Rails 3.0.9 but should work without any problem on any `3.0.*` and `3.1.*` Rails version. I'm in the middle of writing automatic tests for it.
-
-It should work with any ruby compatible with `1.9.2` (ex. JRuby). Expect `1.8.7` support soon.
+Tested with Ruby `1.9.2` and `1.8.7`.
+Tested with Rails `3.0.9` and `3.1.0.rc4`
 
 ## Notifications
 
