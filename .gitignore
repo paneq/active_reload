@@ -12,4 +12,4 @@ test/dummy*/tmp/
 test/dummy*/vendor/bundle/
 
 test/dummy310rc5/app/controllers/root_controller.rb
-test/dummy309/app/controllers/root_controller.rb
+test/dummy3010/app/controllers/root_controller.rb
