@@ -33,7 +33,7 @@ end
 class ReloadTest < Bbq::TestCase
   include FileCommandHelper
 
-  %w(309 310rc4).each_with_index do |version, index|
+  %w(309 310rc5).each_with_index do |version, index|
     define_method(:"test_rails#{version}") do
       app_port      = 8898 + index
       app_root      = File.expand_path( File.join(File.dirname(__FILE__), '..', "dummy#{version}") )
