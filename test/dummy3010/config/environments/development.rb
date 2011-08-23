@@ -1,6 +1,6 @@
 require File.expand_path( File.join(File.dirname(__FILE__), '..', '..', '..', 'support', "defined_middleware") )
 
-Dummy309::Application.configure do
+Dummy3010::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on

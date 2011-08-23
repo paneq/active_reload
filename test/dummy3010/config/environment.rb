@@ -2,4 +2,4 @@
 require File.expand_path('../application', __FILE__)
 
 # Initialize the rails application
-Dummy309::Application.initialize!
+Dummy3010::Application.initialize!
