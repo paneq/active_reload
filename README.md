@@ -83,6 +83,23 @@ end
  * http://blog.robert.pankowecki.pl/2011/06/faster-rails-development-part-2.html
  * http://blog.robert.pankowecki.pl/2011/05/get-faster-rails-development.html
 
+## Testing & Contribution
+
+```bash
+cd active_reload
+
+bundle install
+cd test/dummy309/
+bundle install
+cd ../..
+
+cd test/dummy310rc5/
+bundle install
+cd ../..
+
+bundle exec rake test
+```
+
 ## Do you want to reproduce the video experiment ? 
 
 The tested spree version was: https://github.com/spree/spree/tree/42795d91d3680394ef70126e6660cac3da81e8a9
