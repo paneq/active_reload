@@ -11,5 +11,5 @@ test/dummy*/log/*.log
 test/dummy*/tmp/
 test/dummy*/vendor/bundle/
 
-test/dummy310rc4/app/controllers/root_controller.rb
+test/dummy310rc5/app/controllers/root_controller.rb
 test/dummy309/app/controllers/root_controller.rb
