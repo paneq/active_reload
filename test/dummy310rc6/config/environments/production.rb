@@ -1,4 +1,4 @@
-Dummy310rc5::Application.configure do
+Dummy310rc6::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests

@@ -1,4 +1,4 @@
-Dummy310rc5::Application.routes.draw do
+Dummy310rc6::Application.routes.draw do
   match "/empty", :to => "empty#index"
   match "/root",  :to => "root#index"
   
