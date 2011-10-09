@@ -27,3 +27,25 @@ Dummy3010::Application.configure do
 
   config.middleware.insert_after(ActionDispatch::Static, DefinedMiddleware)
 end
+
+# http://railscasts.com/episodes/249-notifications-in-rails-3
+ActiveSupport::Notifications.subscribe("active_support.dependencies.clear") do |*args|
+  msg = "Code reloaded!"
+  #  Libnotify.show(:body => msg, :summary => Rails.application.class.name, :timeout => 2.5, :append => true) # https://github.com/splattael/libnotify
+  puts msg
+  Rails.logger.info(" --- #{msg} --- ")
+end
+
+ActiveSupport::Notifications.subscribe("active_reload.set_clear_dependencies_hook_replaced") do |*args|
+  event = ActiveSupport::Notifications::Event.new(*args)
+  msg = event.name
+  #  Libnotify.show(:body => msg, :summary => Rails.application.class.name, :timeout => 2.5, :append => true) # https://github.com/splattael/libnotify
+  puts msg
+  Rails.logger.warn(" --- #{msg} --- ")
+end
+
+# Log how dependencies (constants) are resolved automatically and when they are unloaded.
+dependencies_logger_dir = File.join(Rails.root, 'log', 'dependencies')
+FileUtils.mkpath(dependencies_logger_dir)
+ActiveSupport::Dependencies.log_activity = true
+ActiveSupport::Dependencies.logger = Logger.new(File.join(dependencies_logger_dir, Rails.env + '.log'))

@@ -13,3 +13,4 @@ test/dummy*/vendor/bundle/
 
 test/dummy310rc6/app/controllers/root_controller.rb
 test/dummy3010/app/controllers/root_controller.rb
+test/dummy310rc6/log/dependencies/
