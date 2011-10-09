@@ -74,6 +74,12 @@ class ReloadTest < Bbq::TestCase
         user.visit('/const/RootController')
         user.see!('constant')
 
+        user.visit('/root')        # load RootController
+        user.see!('first version') # in first version
+
+        user.visit('/const/RootController')
+        user.see!('constant')
+
         user.visit('/empty')                 # rails would reload the code after /root request but we don't
         user.visit('/const/RootController')
         user.see!('constant')                # so the constant RootController should be still defined
