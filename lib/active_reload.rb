@@ -84,6 +84,7 @@ module ActiveReload
     @replaced = proc_collection.pop
     if rails31?
       proc_source.to_prepare(&new)
+      proc_source.__define_runner(:cleanup)
     else
       proc_source.before(&new)
     end
