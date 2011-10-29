@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Robert Pankowecki"]
   s.email       = ["robert.pankowecki@gmail.com"]
   s.homepage    = "https://github.com/paneq/active_reload"
-  s.summary     = %q{Reload Rails code in development mode only when change is deteced}
-  s.description = %q{Reload Rails code in development mode only when change is deteced}
+  s.summary     = %q{Reload Rails code in development mode only when a change is detected}
+  s.description = %q{Reload Rails code in development mode only when a change is detected}
 
   s.rubyforge_project = "active_reload"
 
