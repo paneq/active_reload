@@ -15,6 +15,20 @@ up to a big value. It means that after change first request in development mode 
 and take as much time as it takes without this gem but subsequent request will be faster until next
 changes due to lack of code reloading.
 
+## News
+
+### Rails 3.2
+
+<a
+href=='http://weblog.rubyonrails.org/2011/12/20/rails-3-2-rc1-faster-dev-mode-routing-explain-queries-tagged-logger-store'> This gem has been incorporated into Rails 3.2</a> which was my plan since the first release. If your are on Rails 3.2 you do not need to do anything. Also during that process Jose Valim fixed some bugs and added few useful features that it was missing. In other words, probably the easiest way to use it and have the best experience is to upgrade your Rails app.
+
+### Not supported anymore
+
+Because of that and having in mind that it works fine for most Rails 3.0 and
+3.1 applications I decided to no longer support it. It provided value to
+lot of people, make them happier and more productive so this is now a
+community responsibility to take care of this feature in Rails code.
+
 ## It works for you so you want to thank? There are many options:
 
  * Meet me at wroc_love.rb conference : http://wrocloverb.com/ and buy me a beer.
@@ -39,10 +53,16 @@ http://youtubedoubler.com/1fts
 
 ## Installation
 
-Simply add Active Reload to your Gemfile and bundle it up:
+Simply add Active Reload to your Gemfile in development group and bundle it up:
 
 ```ruby
-  gem 'active_reload'
+  group :development do
+    gem 'active_reload'
+  end
+```
+
+```bash
+  bundle install
 ```
 
 ## Compatibility
@@ -99,7 +119,7 @@ cd ../..
 bundle exec rake test
 ```
 
-## Do you want to reproduce the video experiment ? 
+## Do you want to reproduce the video experiment ?
 
 The tested spree version was: https://github.com/spree/spree/tree/42795d91d3680394ef70126e6660cac3da81e8a9
 
@@ -124,17 +144,17 @@ require 'benchmark'
 
 shop = ["Ruby on Rails", "Apache", "Clothing", "Bags", "Mugs"]
 admin = [
-"Overview", 
-"Orders", 
-"Next", 
-"Products", 
-"Option Types", 
-"Properties", 
-"Prototypes", 
-"Product Groups", 
-"Reports", 
-"Sales Total", 
-"Configuration", 
+"Overview",
+"Orders",
+"Next",
+"Products",
+"Option Types",
+"Properties",
+"Prototypes",
+"Product Groups",
+"Reports",
+"Sales Total",
+"Configuration",
 "General Settings",
 "Mail Methods",
 "Tax Categories",
