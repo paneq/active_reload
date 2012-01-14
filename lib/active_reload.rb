@@ -1,4 +1,7 @@
 require "active_reload/version"
+require 'rails/railtie'
+require 'active_support/notifications'
+require 'active_support/dependencies'
 
 module ActiveReload
 
@@ -47,7 +50,7 @@ module ActiveReload
       ActionDispatch::Callbacks
     end
   end
-  
+
   def self.replace_proc?(last)
     last.respond_to?(:raw_filter) &&
     last.raw_filter.is_a?(Proc) &&
@@ -56,7 +59,7 @@ module ActiveReload
 
   def self.replace!
     return unless replace?
-    
+
     ActiveSupport::Notifications.instrument("active_reload.set_clear_dependencies_hook_replaced") do
 
       changed_at = Proc.new do
@@ -98,5 +101,5 @@ module ActiveReload
     rails3? && Rails::VERSION::MINOR == 1
   end
 
-  
+
 end
