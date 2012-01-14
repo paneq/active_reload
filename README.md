@@ -20,7 +20,7 @@ changes due to lack of code reloading.
 ### Rails 3.2
 
 <a
-href=='http://weblog.rubyonrails.org/2011/12/20/rails-3-2-rc1-faster-dev-mode-routing-explain-queries-tagged-logger-store'> This gem has been incorporated into Rails 3.2</a> which was my plan since the first release. If your are on Rails 3.2 you do not need to do anything. Also during that process Jose Valim fixed some bugs and added few useful features that it was missing. In other words, probably the easiest way to use it and have the best experience is to upgrade your Rails app.
+href='http://weblog.rubyonrails.org/2011/12/20/rails-3-2-rc1-faster-dev-mode-routing-explain-queries-tagged-logger-store'> This gem has been incorporated into Rails 3.2</a> which was my plan since the first release. If your are on Rails 3.2 you do not need to do anything. Also during that process Jose Valim fixed some bugs and added few useful features that it was missing. In other words, probably the easiest way to use it and have the best experience is to upgrade your Rails app.
 
 ### Not supported anymore
 
